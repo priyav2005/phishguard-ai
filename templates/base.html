@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>{% block title %}PhishGuard AI{% endblock %}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/static/css/app.css"/>
+</head>
+<body>
+<canvas id="bgCanvas"></canvas>
+
+<!-- ─── TOP BAR: logo + 8 models badge only ───────────────────────────── -->
+<header class="topbar">
+  <div class="tb-left">
+    <button class="tb-hamburger" onclick="toggleSidebar()">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="tb-logo">
+      <svg viewBox="0 0 32 36" fill="none" width="20" height="24">
+        <path d="M16 2L2 8V18C2 27 8 34 16 35C24 34 30 27 30 18V8L16 2Z" fill="url(#lg)"/>
+        <path d="M10 18L14 22L22 13" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <defs><linearGradient id="lg" x1="2" y1="2" x2="30" y2="35" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#6366F1"/><stop offset="100%" stop-color="#9333EA"/>
+        </linearGradient></defs>
+      </svg>
+      <span class="tb-brand">PhishGuard <strong>AI</strong></span>
+    </div>
+  </div>
+  <div class="tb-badge">
+    <span class="pulse-dot"></span>
+    <span>8 Models Active</span>
+  </div>
+</header>
+
+<!-- ─── LAYOUT ────────────────────────────────────────────────────────── -->
+<div class="pg-layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+
+    <div class="sb-brand-row">
+      <span class="sb-hex">⬡</span>
+      <div>
+        <div class="sb-bname">PhishGuard AI</div>
+        <div class="sb-bsub">Threat Intelligence</div>
+      </div>
+    </div>
+
+    <div class="sb-hr"></div>
+
+    {% if user %}
+    <div class="sb-user-card">
+      <div class="sb-ava">{{ user[0].upper() }}</div>
+      <div class="sb-udetails">
+        <div class="sb-uname">{{ user }}</div>
+        <div class="sb-urole">Security Analyst</div>
+      </div>
+    </div>
+    <div class="sb-hr"></div>
+    {% endif %}
+
+    <div class="sb-section">NAVIGATION</div>
+
+    <nav class="sb-nav">
+      <a href="/"          class="sb-item {% if active=='home'      %}sb-active{% endif %}"><span class="sb-ico">🏠</span> Home</a>
+      <a href="/scanner"   class="sb-item {% if active=='scanner'   %}sb-active{% endif %}"><span class="sb-ico">🔍</span> Scanner</a>
+      <a href="/analytics" class="sb-item {% if active=='analytics' %}sb-active{% endif %}"><span class="sb-ico">📊</span> Analytics</a>
+      <a href="/charts"    class="sb-item {% if active=='charts'    %}sb-active{% endif %}"><span class="sb-ico">📈</span> Charts</a>
+      <a href="/history"   class="sb-item {% if active=='history'   %}sb-active{% endif %}"><span class="sb-ico">🕒</span> History</a>
+      <a href="/blacklist" class="sb-item {% if active=='blacklist' %}sb-active{% endif %}"><span class="sb-ico">⛔</span> Blacklist</a>
+    </nav>
+
+    <div class="sb-push"></div>
+    <div class="sb-hr"></div>
+
+    <div class="sb-section" style="margin-top:10px">SECURITY TIP</div>
+    <div class="sb-tip" id="sbTip">Always verify HTTPS before entering passwords.</div>
+
+    {% if user %}
+    <a href="/logout" class="sb-logout">
+      <span>⏻</span> Sign Out
+    </a>
+    {% endif %}
+
+    <div class="sb-footer">Final Year Project · B.Tech IT · 2026</div>
+  </aside>
+
+  <!-- Sidebar overlay for mobile -->
+  <div class="sb-overlay" id="sbOverlay" onclick="closeSidebar()"></div>
+
+  <!-- Main content -->
+  <main class="pg-main">
+    {% block content %}{% endblock %}
+  </main>
+</div>
+
+<!-- Ticker -->
+<div class="ticker-bar">
+  <div class="ticker-label">🔴 LIVE THREAT INTELLIGENCE</div>
+  <div class="ticker-msg" id="tickerText"></div>
+</div>
+
+<script src="/static/js/base.js"></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

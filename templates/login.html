@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>PhishGuard AI — Sign In</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/static/css/app.css"/>
+  <link rel="stylesheet" href="/static/css/auth.css"/>
+</head>
+<body class="auth-body">
+<canvas id="bgCanvas"></canvas>
+
+<div class="auth-page">
+  <!-- Left panel -->
+  <div class="auth-left">
+    <div class="auth-logo">
+      <svg viewBox="0 0 32 36" fill="none" width="40" height="48">
+        <path d="M16 2L2 8V18C2 27 8 34 16 35C24 34 30 27 30 18V8L16 2Z" fill="url(#alg)"/>
+        <path d="M10 18L14 22L22 13" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <defs><linearGradient id="alg" x1="2" y1="2" x2="30" y2="35" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#6366F1"/><stop offset="100%" stop-color="#9333EA"/>
+        </linearGradient></defs>
+      </svg>
+      <span class="auth-logo-text">PhishGuard AI</span>
+    </div>
+    <h1 class="auth-hero-title">Welcome<br/><span class="auth-gradient">Back</span></h1>
+    <p class="auth-hero-sub">Sign in to your account to access the AI-powered phishing detection platform.</p>
+    <div class="auth-left-stats">
+      <div class="als"><div class="als-num" style="color:#6366F1">97%+</div><div class="als-lbl">Accuracy</div></div>
+      <div class="als"><div class="als-num" style="color:#9333EA">8</div><div class="als-lbl">ML Models</div></div>
+      <div class="als"><div class="als-num" style="color:#10B981">50K</div><div class="als-lbl">Trained URLs</div></div>
+    </div>
+    <div class="auth-left-feats">
+      <div class="alf">✅ Real-time SSL certificate checking</div>
+      <div class="alf">✅ Auto-learning blacklist database</div>
+      <div class="alf">✅ Personal scan history per account</div>
+      <div class="alf">✅ Threat severity scoring (Low–Critical)</div>
+    </div>
+  </div>
+
+  <!-- Right: form -->
+  <div class="auth-right">
+    <div class="auth-card">
+      <h2 class="auth-form-title">Sign In</h2>
+      <p class="auth-form-sub">Access your PhishGuard AI account</p>
+
+      {% if error %}
+      <div class="auth-err"><span>⚠</span> {{ error }}</div>
+      {% endif %}
+
+      <form method="POST" action="/login" class="auth-form">
+        <div class="af-field">
+          <label class="af-label">USERNAME</label>
+          <div class="af-wrap">
+            <span class="af-ico">👤</span>
+            <input type="text" name="username" class="af-input" placeholder="Enter your username" required autocomplete="username"/>
+          </div>
+        </div>
+        <div class="af-field">
+          <label class="af-label">PASSWORD</label>
+          <div class="af-wrap">
+            <span class="af-ico">🔒</span>
+            <input type="password" name="password" id="loginPw" class="af-input" placeholder="Enter your password" required/>
+            <button type="button" class="af-eye" onclick="togglePw('loginPw',this)">👁</button>
+          </div>
+        </div>
+        <button type="submit" class="auth-submit-btn">Sign In →</button>
+      </form>
+
+      <div class="auth-switch">
+        Don't have an account? <a href="/register" class="auth-link">Create one now</a>
+      </div>
+      <div class="auth-switch" style="margin-top:6px">
+        <a href="/landing" class="auth-link" style="color:#475569;font-size:0.78rem">← Back to home</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/static/js/base.js"></script>
+<script>
+function togglePw(id,btn){
+  const i=document.getElementById(id);
+  i.type=i.type==="password"?"text":"password";
+  btn.textContent=i.type==="password"?"👁":"🙈";
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}PhishGuard AI — Home{% endblock %}
+{% block content %}
+
+<div class="home-scroll">
+
+  <!-- ── HERO with radar ─────────────────────────────────────────────────── -->
+  <section class="home-hero">
+    <canvas id="homeRadar" class="home-radar-canvas"></canvas>
+    <div class="home-hero-inner">
+      <div class="home-badge">🤖 AI-Powered Cybersecurity Platform</div>
+      <h1 class="home-title">PhishGuard AI</h1>
+      <h2 class="home-sub">
+        <span style="color:#818CF8">Phishing URL</span>
+        <span style="color:#C084FC"> Detection Engine</span>
+      </h2>
+      <p class="home-desc">
+        8 Machine Learning Models &nbsp;·&nbsp; 3-Layer Defense &nbsp;·&nbsp; SSL Certificate Checker<br/>
+        Auto-Learning Blacklist &nbsp;·&nbsp; Threat Severity Scoring &nbsp;·&nbsp; Live Intelligence Feed
+      </p>
+      <a href="/scanner" class="home-cta">🔍 &nbsp; Launch Scanner &nbsp;→</a>
+    </div>
+  </section>
+
+  <!-- ── STATS ───────────────────────────────────────────────────────────── -->
+  <section class="home-stats-section">
+    <div class="home-stats-row">
+      <div class="hstat" style="border-top-color:#6366F1"><div class="hstat-num" style="color:#6366F1">97%+</div><div class="hstat-lbl">Detection Accuracy</div></div>
+      <div class="hstat" style="border-top-color:#9333EA"><div class="hstat-num" style="color:#9333EA">8</div><div class="hstat-lbl">ML Models Active</div></div>
+      <div class="hstat" style="border-top-color:#06B6D4"><div class="hstat-num" style="color:#06B6D4">30</div><div class="hstat-lbl">URL Features</div></div>
+      <div class="hstat" style="border-top-color:#10B981"><div class="hstat-num" style="color:#10B981">50K</div><div class="hstat-lbl">URLs Trained On</div></div>
+      <div class="hstat" style="border-top-color:#F97316"><div class="hstat-num" style="color:#F97316">3</div><div class="hstat-lbl">Defense Layers</div></div>
+    </div>
+  </section>
+
+  <!-- ── PLATFORM CAPABILITIES ──────────────────────────────────────────── -->
+  <section class="home-section">
+    <h2 class="home-sec-title">Platform Capabilities</h2>
+    <p class="home-sec-sub">Everything you need to detect and stop phishing attacks in real time</p>
+    <div class="home-feat-grid">
+      <div class="home-feat-card"><div class="hfeat-icon" style="background:#6366F1">🔍</div><div class="hfeat-name">URL Scanner</div><div class="hfeat-desc">Paste any URL for instant verdict with confidence score, SSL status, and severity rating.</div></div>
+      <div class="home-feat-card"><div class="hfeat-icon" style="background:#9333EA">📊</div><div class="hfeat-name">ML Analytics</div><div class="hfeat-desc">Compare all 8 model accuracies side-by-side with live charts and feature importance.</div></div>
+      <div class="home-feat-card"><div class="hfeat-icon" style="background:#EF4444">⛔</div><div class="hfeat-name">Blacklist DB</div><div class="hfeat-desc">Auto-growing SQLite threat database. Phishing URLs added automatically after detection.</div></div>
+      <div class="home-feat-card"><div class="hfeat-icon" style="background:#06B6D4">🕒</div><div class="hfeat-name">Your History</div><div class="hfeat-desc">Personal scan audit log — only your scans visible, completely private per user.</div></div>
+      <div class="home-feat-card"><div class="hfeat-icon" style="background:#10B981">🛡</div><div class="hfeat-name">SSL Checker</div><div class="hfeat-desc">Real-time certificate check — issuer, expiry date, days remaining, TLS version.</div></div>
+      <div class="home-feat-card"><div class="hfeat-icon" style="background:#F97316">📈</div><div class="hfeat-name">Charts & Reports</div><div class="hfeat-desc">Pie charts, line graphs, bar charts of your personal scanning activity.</div></div>
+    </div>
+  </section>
+
+  <!-- ── 3-LAYER DEFENSE ────────────────────────────────────────────────── -->
+  <section class="home-section">
+    <h2 class="home-sec-title">3-Layer Defense Architecture</h2>
+    <p class="home-sec-sub">Every URL passes through three independent security checks</p>
+    <div class="home-layers">
+      <div class="hlayer" style="border-color:#10B981"><div class="hlayer-tag" style="background:#10B981">🛡 LAYER 01</div><div class="hlayer-name">Whitelist & Blacklist</div><div class="hlayer-desc">Instant check against 100+ trusted domains and auto-growing threat database. Zero ML cost.</div></div>
+      <div class="hlayer-arrow">→</div>
+      <div class="hlayer" style="border-color:#6366F1"><div class="hlayer-tag" style="background:#6366F1">🤖 LAYER 02</div><div class="hlayer-name">8 ML Models</div><div class="hlayer-desc">Xgboost primary with 7 algorithms analyzing 30 URL features in parallel. 97%+ accuracy.</div></div>
+      <div class="hlayer-arrow">→</div>
+      <div class="hlayer" style="border-color:#9333EA"><div class="hlayer-tag" style="background:#9333EA">🧠 LAYER 03</div><div class="hlayer-name">Auto-Learn</div><div class="hlayer-desc">Confirmed phishing URLs auto-added to blacklist. System gets smarter with every scan.</div></div>
+    </div>
+  </section>
+
+  <!-- ── BOTTOM CTA ─────────────────────────────────────────────────────── -->
+  <section class="home-section" style="padding-bottom:3rem">
+    <div class="home-cta-card">
+      <h2 class="home-cta-title">Ready to detect phishing threats?</h2>
+      <p class="home-cta-sub">Start scanning any URL instantly — 8 ML models + real-time intelligence</p>
+      <a href="/scanner" class="home-cta">🔍 &nbsp; Open Scanner Now</a>
+    </div>
+  </section>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/js/radar.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    startRadar("homeRadar");
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>PhishGuard AI — Phishing URL Detection</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/static/css/app.css"/>
+  <link rel="stylesheet" href="/static/css/auth.css"/>
+</head>
+<body class="landing-body">
+<canvas id="bgCanvas"></canvas>
+
+<!-- Minimal top bar -->
+<header class="land-topbar">
+  <div class="land-logo">
+    <svg viewBox="0 0 32 36" fill="none" width="22" height="26">
+      <path d="M16 2L2 8V18C2 27 8 34 16 35C24 34 30 27 30 18V8L16 2Z" fill="url(#llg)"/>
+      <path d="M10 18L14 22L22 13" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <defs><linearGradient id="llg" x1="2" y1="2" x2="30" y2="35" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#6366F1"/><stop offset="100%" stop-color="#9333EA"/>
+      </linearGradient></defs>
+    </svg>
+    <span>PhishGuard <strong>AI</strong></span>
+  </div>
+  <div class="land-auth-btns">
+    <a href="/login"    class="land-signin-btn">Sign In</a>
+    <a href="/register" class="land-register-btn">Create Account</a>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="land-hero">
+  <canvas id="landRadar" class="land-radar-canvas"></canvas>
+  <div class="land-hero-content">
+    <div class="land-badge">🤖 AI-Powered Cybersecurity Platform</div>
+    <h1 class="land-title">PhishGuard AI</h1>
+    <h2 class="land-sub">
+      <span style="color:#818CF8">Phishing URL</span>
+      <span style="color:#C084FC"> Detection Engine</span>
+    </h2>
+    <p class="land-desc">
+      8 Machine Learning Models &nbsp;·&nbsp; 3-Layer Defense &nbsp;·&nbsp; SSL Certificate Checker<br/>
+      Auto-Learning Blacklist &nbsp;·&nbsp; Threat Severity Scoring &nbsp;·&nbsp; Live Intelligence Feed
+    </p>
+    <!-- CTA: must login to scan -->
+    <div class="land-cta-group">
+      <a href="/register" class="land-cta-primary">🚀 Get Started Free</a>
+      <a href="/login"    class="land-cta-secondary">Sign In to Scan →</a>
+    </div>
+    <p class="land-hint">⚠ You must be signed in to scan URLs and access all features.</p>
+  </div>
+</section>
+
+<!-- Stats strip -->
+<div class="land-stats">
+  <div class="land-stat"><div class="land-snum" style="color:#6366F1">97%+</div><div class="land-slbl">Accuracy</div></div>
+  <div class="land-stat"><div class="land-snum" style="color:#9333EA">8</div><div class="land-slbl">ML Models</div></div>
+  <div class="land-stat"><div class="land-snum" style="color:#06B6D4">30</div><div class="land-slbl">URL Features</div></div>
+  <div class="land-stat"><div class="land-snum" style="color:#10B981">50K</div><div class="land-slbl">URLs Trained</div></div>
+  <div class="land-stat"><div class="land-snum" style="color:#F97316">3</div><div class="land-slbl">Defense Layers</div></div>
+</div>
+
+<!-- Feature cards -->
+<section class="land-features">
+  <h2 class="land-feat-title">Platform Capabilities</h2>
+  <p class="land-feat-sub">Sign in to access all these features</p>
+  <div class="land-feat-grid">
+    <div class="land-feat-card"><div class="land-ficon" style="background:#6366F1">🔍</div><div class="land-fname">URL Scanner</div><div class="land-fdesc">Instant phishing verdict with confidence score, SSL status, and severity rating.</div></div>
+    <div class="land-feat-card"><div class="land-ficon" style="background:#9333EA">📊</div><div class="land-fname">ML Analytics</div><div class="land-fdesc">Compare all 8 model accuracies with live charts and feature importance.</div></div>
+    <div class="land-feat-card"><div class="land-ficon" style="background:#EF4444">⛔</div><div class="land-fname">Blacklist DB</div><div class="land-fdesc">Auto-growing SQLite threat database updated with every new detection.</div></div>
+    <div class="land-feat-card"><div class="land-ficon" style="background:#06B6D4">🕒</div><div class="land-fname">Your History</div><div class="land-fdesc">Personal scan audit log — only your scans, completely private.</div></div>
+    <div class="land-feat-card"><div class="land-ficon" style="background:#10B981">🛡</div><div class="land-fname">SSL Checker</div><div class="land-fdesc">Real-time certificate validation — issuer, expiry, days remaining.</div></div>
+    <div class="land-feat-card"><div class="land-ficon" style="background:#F97316">📈</div><div class="land-fname">Charts & Reports</div><div class="land-fdesc">Pie charts, line graphs, bar charts of your personal scan history.</div></div>
+  </div>
+</section>
+
+<!-- 3-layer defense -->
+<section class="land-layers">
+  <h2 class="land-feat-title">3-Layer Defense Architecture</h2>
+  <p class="land-feat-sub">Every URL passes through three independent security checks</p>
+  <div class="land-layers-row">
+    <div class="land-layer" style="border-color:#10B981">
+      <div class="land-ltag" style="background:#10B981">🛡 LAYER 01</div>
+      <div class="land-lname">Whitelist & Blacklist</div>
+      <div class="land-ldesc">Instant check against 100+ trusted domains and growing threat database.</div>
+    </div>
+    <div class="land-arrow">→</div>
+    <div class="land-layer" style="border-color:#6366F1">
+      <div class="land-ltag" style="background:#6366F1">🤖 LAYER 02</div>
+      <div class="land-lname">8 ML Models</div>
+      <div class="land-ldesc">Xgboost primary with 7 algorithms analyzing 30 URL features in parallel.</div>
+    </div>
+    <div class="land-arrow">→</div>
+    <div class="land-layer" style="border-color:#9333EA">
+      <div class="land-ltag" style="background:#9333EA">🧠 LAYER 03</div>
+      <div class="land-lname">Auto-Learn</div>
+      <div class="land-ldesc">Confirmed phishing URLs auto-added to blacklist. System improves with every scan.</div>
+    </div>
+  </div>
+</section>
+
+<!-- Bottom CTA -->
+<section class="land-bottom-cta">
+  <h2>Ready to protect yourself?</h2>
+  <p>Create a free account and start scanning URLs in seconds.</p>
+  <a href="/register" class="land-cta-primary" style="display:inline-flex;font-size:1rem;padding:14px 36px">🚀 Create Free Account</a>
+</section>
+
+<!-- Ticker -->
+<div class="ticker-bar">
+  <div class="ticker-label">🔴 LIVE THREAT INTELLIGENCE</div>
+  <div class="ticker-msg" id="tickerText"></div>
+</div>
+
+<script src="/static/js/base.js"></script>
+<script src="/static/js/radar.js"></script>
+<script>
+  // Start landing page radar
+  document.addEventListener("DOMContentLoaded", function() {
+    startRadar("landRadar");
+  });
+</script>
+</body>
+</html>

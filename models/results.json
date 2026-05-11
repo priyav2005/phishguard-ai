@@ -1,0 +1,10 @@
+{
+  "XGBoost": 99.8,
+  "Gradient Boosting": 99.8,
+  "Random Forest": 99.79,
+  "Decision Tree": 99.76,
+  "MLP Classifier": 99.78,
+  "Logistic Regression": 99.65,
+  "K-Nearest Neighbors": 99.75,
+  "Naive Bayes": 99.23
+}

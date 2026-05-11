@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}PhishGuard AI — History{% endblock %}
+{% block content %}
+<div class="page-wrap">
+  <div class="page-hdr">
+    <div>
+      <div class="page-tag" style="color:#6366F1">MY SCAN AUDIT LOG</div>
+      <h1 class="page-title">Scan History</h1>
+    </div>
+    <div class="header-actions">
+      <button class="refresh-btn" onclick="loadHistory()">↻ Refresh</button>
+      <button class="clear-btn" onclick="clearHistory()">🗑 Clear All</button>
+    </div>
+  </div>
+  <div class="page-div"></div>
+
+  <div class="filter-row">
+    <button class="fbtn active" onclick="filterBy('all',this)">All</button>
+    <button class="fbtn"        onclick="filterBy('phishing',this)">🎣 Phishing</button>
+    <button class="fbtn"        onclick="filterBy('safe',this)">✅ Safe</button>
+    <button class="fbtn"        onclick="filterBy('blacklist',this)">⛔ Blacklist</button>
+    <button class="fbtn"        onclick="filterBy('whitelist',this)">🛡 Whitelist</button>
+    <span class="rec-count" id="recCount">–</span>
+  </div>
+
+  <!-- Confirm clear modal -->
+  <div class="modal-overlay" id="clearModal" style="display:none">
+    <div class="modal-box">
+      <div class="modal-icon">🗑</div>
+      <div class="modal-title">Clear Your History?</div>
+      <div class="modal-sub">This will permanently delete all your scan records. This cannot be undone.</div>
+      <div class="modal-btns">
+        <button class="modal-cancel"  onclick="closeClearModal()">Cancel</button>
+        <button class="modal-confirm" onclick="confirmClear()">Yes, Clear All</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card table-card">
+    <div class="table-scroll">
+      <table class="data-table">
+        <thead><tr><th>Scanned At</th><th>URL</th><th>Layer</th><th>Result</th><th>Confidence</th></tr></thead>
+        <tbody id="histBody"><tr class="empty-row"><td colspan="5">Loading...</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block extra_js %}<script src="/static/js/history.js"></script>{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}PhishGuard AI — Analytics{% endblock %}
+{% block content %}
+<div class="page-wrap">
+  <div class="page-hdr">
+    <div>
+      <div class="page-tag" style="color:#6366F1">MODEL PERFORMANCE</div>
+      <h1 class="page-title">Analytics Dashboard</h1>
+    </div>
+  </div>
+  <div class="page-div"></div>
+
+  <div id="noModels" style="display:none" class="no-data-box">
+    <div class="no-data-icon">⚠</div>
+    <div class="no-data-title">Models not loaded</div>
+    <div class="no-data-sub">Run <code style="color:#6366F1">python train_models.py</code> then restart Flask.</div>
+  </div>
+
+  <!-- Accuracy cards -->
+  <div class="acc-cards-row" id="accCards"></div>
+
+  <!-- Accuracy bars -->
+  <div class="card" style="padding:1.4rem;margin-bottom:1.2rem" id="accBarsCard">
+    <div style="font-size:10px;font-weight:800;color:#94A3B8;letter-spacing:1.5px;margin-bottom:14px">ACCURACY COMPARISON — ALL 8 MODELS</div>
+    <div class="acc-bars" id="accBars"></div>
+  </div>
+
+  <!-- Feature importance -->
+  <div class="card" style="padding:1.4rem" id="featImpCard">
+    <div style="font-size:10px;font-weight:800;color:#94A3B8;letter-spacing:1.5px;margin-bottom:14px">FEATURE IMPORTANCE — XGBoost (Primary Model)</div>
+    <div class="acc-bars" id="featBars"></div>
+  </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script src="/static/js/analytics.js"></script>
+{% endblock %}

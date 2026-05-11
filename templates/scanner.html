@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+{% block title %}PhishGuard AI — Scanner{% endblock %}
+{% block content %}
+<div class="page-wrap">
+  <div class="page-hdr">
+    <div>
+      <div class="page-tag" style="color:#6366F1">URL THREAT SCANNER</div>
+      <h1 class="page-title">Scan Any URL</h1>
+    </div>
+    <div class="hstat-row-scan">
+      <div class="hs-box" style="border-top:3px solid #EF4444"><div class="hs-num" id="hPhishing" style="color:#EF4444">0</div><div class="hs-lbl">Threats Today</div></div>
+      <div class="hs-box" style="border-top:3px solid #10B981"><div class="hs-num" id="hSafe" style="color:#10B981">0</div><div class="hs-lbl">Safe Scans</div></div>
+      <div class="hs-box" style="border-top:3px solid #6366F1"><div class="hs-num" id="hBlacklist" style="color:#6366F1">0</div><div class="hs-lbl">Blacklisted</div></div>
+    </div>
+  </div>
+  <div class="page-div"></div>
+
+  <!-- Input card -->
+  <div class="card input-card">
+    <label class="input-label">Enter URL to Analyze</label>
+    <div class="input-row">
+      <div class="url-wrap">
+        <span class="url-prefix">🔗</span>
+        <input type="text" id="urlInput" class="url-input"
+          placeholder="https://example.com/login?verify=account&token=xyz"
+          autocomplete="off" spellcheck="false"
+          onkeydown="if(event.key==='Enter')scanURL()"/>
+      </div>
+      <button class="scan-btn" id="scanBtn" onclick="scanURL()">🔍 Scan Now</button>
+    </div>
+    <div class="prog-mini"><div class="prog-mini-fill" id="topProg" style="width:0%"></div></div>
+    <div class="status-txt" id="statusTxt"></div>
+    <!-- Feature badges -->
+    <div class="scanner-features-row">
+      <span class="scfeat" title="Domain age via WHOIS">📅 Domain Age Detection</span>
+      <span class="scfeat" title="Real-time SSL certificate validation">🔐 SSL Certificate Check</span>
+      <span class="scfeat" title="XGBoost + 7 ML models">🤖 8 ML Models</span>
+      <span class="scfeat" title="Detailed phishing reason analysis">💬 Key Url Features</span>
+    </div>
+    <div class="quick-row">
+      <span class="quick-lbl">Try:</span>
+      <button class="qtag" onclick="setURL('https://web.whatsapp.com')">whatsapp.com</button>
+      <button class="qtag" onclick="setURL('https://google.com')">google.com</button>
+      <button class="qtag dtag" onclick="setURL('http://paypal-secure-verify.account-login.tk/confirm')">paypal phish</button>
+      <button class="qtag dtag" onclick="setURL('http://192.168.1.1/banking?steal=1')">ip-based</button>
+    </div>
+  </div>
+
+  <!-- Scan result area -->
+  <div id="scanArea" style="display:none">
+    <div class="scan-split">
+      <!-- Left: radar + steps -->
+      <div class="card radar-card">
+        <canvas id="radarCanvas" width="240" height="240"></canvas>
+        <div class="step-lbl" id="stepLbl">Awaiting scan...</div>
+        <div class="sprog-wrap"><div class="sprog-fill" id="sprogFill" style="width:0%"></div></div>
+        <!-- Security check status list -->
+        <div class="check-list" id="checkList">
+          <div class="chk-item" id="chkWhitelist">⏳ Whitelist check</div>
+          <div class="chk-item" id="chkBlacklist">⏳ Blacklist check</div>
+          <div class="chk-item" id="chkML">⏳ ML analysis</div>
+          <div class="chk-item" id="chkSSL">⏳ SSL certificate</div>
+          <div class="chk-item" id="chkDomain">⏳ Domain age</div>
+  
+        </div>
+      </div>
+
+      <!-- Right: result -->
+      <div class="card result-card" id="resultCard">
+
+        <!-- Verdict row -->
+        <div class="verdict-row">
+          <div class="verdict-left">
+            <div class="verdict-emoji" id="vEmoji">🔍</div>
+            <div>
+              <div class="verdict-title" id="vTitle">Scanning...</div>
+              <div class="verdict-url" id="vUrl"></div>
+              <div class="verdict-badges">
+                <span class="layer-badge" id="layerBadge"></span>
+                <span class="sev-badge" id="sevBadge"></span>
+              </div>
+            </div>
+          </div>
+          <div class="conf-ring-wrap">
+            <svg class="conf-ring-svg" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="42" fill="none" stroke="#1E2D50" stroke-width="8"/>
+              <circle id="confCircle" cx="50" cy="50" r="42" fill="none" stroke="#6366F1"
+                stroke-width="8" stroke-dasharray="264" stroke-dashoffset="264"
+                stroke-linecap="round" transform="rotate(-90 50 50)"
+                style="transition:stroke-dashoffset 0.9s ease,stroke 0.3s"/>
+            </svg>
+            <div class="conf-center">
+              <div class="conf-pct" id="confPct">0%</div>
+              <div class="conf-lbl-sm">confidence</div>
+            </div>
+          </div>
+        </div>
+        <div class="cbar-wrap"><div class="cbar-fill" id="cbarFill" style="width:0%"></div></div>
+
+        <!-- Risk summary -->
+        <div class="risk-summary-bar" id="riskSummary" style="display:none">
+          <span id="riskSummaryText"></span>
+        </div>
+
+        <div class="bl-alert" id="blAlert" style="display:none">
+          📥 New threat auto-added to blacklist — future scans will be blocked instantly!
+        </div>
+
+        <!-- 4-panel row: SSL + Models + Domain Age + GSB -->
+        <div class="result-panels-4" id="resultPanels">
+          <!-- SSL -->
+          <div class="panel">
+            <div class="panel-title">🔐 SSL CERTIFICATE</div>
+            <div id="sslStatus" class="ssl-status">–</div>
+            <div id="sslDetails" class="ssl-details"></div>
+          </div>
+          <!-- Domain Age -->
+          <div class="panel">
+            <div class="panel-title">📅 DOMAIN AGE</div>
+            <div id="domainAgeStatus" class="ssl-status">–</div>
+            <div id="domainAgeDetails" class="ssl-details"></div>
+          </div>
+      
+          <!-- Model consensus -->
+          <div class="panel panel-wide">
+            <div class="panel-title">🤖 MODEL CONSENSUS (8 MODELS)</div>
+            <div class="models-grid" id="modelsGrid"></div>
+          </div>
+        </div>
+
+        <!-- ✅ PHISHING REASONS — The star feature -->
+        <div class="reasons-section" id="reasonsSection" style="display:none">
+          <div class="reasons-title" id="reasonsTitleTxt">Reason</div>
+
+          <!-- Phishing indicators -->
+          <div id="phishingReasonsList"></div>
+
+          <!-- Safe indicators -->
+          <div id="safePointsList"></div>
+        </div>
+
+        <!-- Key features -->
+        <div class="panel" style="margin-top:0.8rem">
+          <div class="panel-title">🔎 KEY URL FEATURES</div>
+          <div class="feats-grid" id="featsList"></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script src="/static/js/scanner.js"></script>
+{% endblock %}

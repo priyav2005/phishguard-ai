@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}PhishGuard AI — Blacklist{% endblock %}
+{% block content %}
+<div class="page-wrap">
+  <div class="page-hdr">
+    <div>
+      <div class="page-tag" style="color:#EF4444">THREAT DATABASE</div>
+      <h1 class="page-title">Blacklist Manager</h1>
+    </div>
+    <button class="refresh-btn" onclick="loadBlacklist()">↻ Refresh</button>
+  </div>
+  <div class="page-div"></div>
+
+  <!-- Stats -->
+  <div class="bl-stats-row">
+    <div class="bl-stat" style="border-top-color:#EF4444">
+      <div class="bl-stat-num" id="blTotal" style="color:#EF4444">–</div>
+      <div class="bl-stat-lbl">Total Blocked</div>
+    </div>
+    <div class="bl-stat" style="border-top-color:#6366F1">
+      <div class="bl-stat-num" id="blAuto" style="color:#6366F1">–</div>
+      <div class="bl-stat-lbl">Auto-Detected</div>
+    </div>
+    <div class="bl-stat" style="border-top-color:#9333EA">
+      <div class="bl-stat-num" id="blManual" style="color:#9333EA">–</div>
+      <div class="bl-stat-lbl">Manually Added</div>
+    </div>
+  </div>
+
+  <!-- Add URL -->
+  <div class="card add-card">
+    <div class="add-row">
+      <input type="text" id="manualUrl" class="manual-input"
+        placeholder="Manually add a phishing URL to blacklist..."
+        onkeydown="if(event.key==='Enter')manualAdd()"/>
+      <button class="add-btn" onclick="manualAdd()">+ Add</button>
+      <button class="refresh-btn" onclick="loadBlacklist()" style="margin-left:4px">↻</button>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="card table-card">
+    <div class="table-scroll">
+      <table class="data-table">
+        <thead><tr><th>Added At</th><th>URL</th><th>Domain</th><th>Source</th><th>Confidence</th><th>Action</th></tr></thead>
+        <tbody id="blBody"><tr class="empty-row"><td colspan="6">Loading...</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block extra_js %}<script src="/static/js/blacklist_page.js"></script>{% endblock %}
